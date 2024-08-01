@@ -1,0 +1,22 @@
+-- create table for customer
+use academy;
+CREATE TABLE cust_dtls(
+cust_id INT primary key,
+cust_name  varchar(20),
+cust_address varchar(20)
+);
+select * from cust_dtls;
+select * from acc_dtls;
+
+ INSERT INTO cust_dtls(cust_id,cust_name,cust_address)
+ VALUES(1001,'Kiran','Mumbai');
+  INSERT INTO cust_dtls(cust_id,cust_name,cust_address)
+ VALUES(1002,'Chetan','Banglore');
+ INSERT INTO cust_dtls(cust_id,cust_name,cust_address)
+ VALUES(1003,'Amita','Banglore');
+  INSERT INTO cust_dtls(cust_id,cust_name,cust_address)
+ VALUES(1004,'Anitha','Delhi');
+ 
+ 
+INSERT INTO acc_dtls(acc_id,account_number,balance,customer_id)VALUES(1,'123456','10000',1001);
+INSERT INTO acc_dtls(acc_id,account_number,balance,customer_id)VALUES(2,'111111','50000',1002); 
