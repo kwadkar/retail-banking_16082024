@@ -1,8 +1,13 @@
 package com.academy.miniproject.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,6 +23,7 @@ import com.academy.miniproject.exception.ResourceNotFoundException;
 import com.academy.miniproject.model.Customer;
 import com.academy.miniproject.model.request.CustomerRequest;
 import com.academy.miniproject.model.request.CustomerResponse;
+import com.academy.miniproject.repository.CustomerRepository2;
 import com.academy.miniproject.service.CustomerServiceImpl;
 
 @RestController()
@@ -63,5 +69,35 @@ public class CustomerController {
 		return new ResponseEntity<>(customerService.updateCustomerData(custId,customerRequest), HttpStatus.OK);
 	}
 	
+	@Autowired
+	CustomerRepository2 customerRepository2;
+	
+	@GetMapping("/getAllDataTest")
+	public ResponseEntity getCustomerDetailsSort() {
+		//page and size
+		//only paging
+		Pageable pageable = PageRequest.of(0, 3);
+		Page<Customer> page = customerRepository2.findAll(pageable);
+		
+		return new ResponseEntity(page, HttpStatus.OK) ;
+		
+		
+		
+		//only sorting
+		//List<Customer> lstCust = (List<Customer>) customerRepository2.findAll(Sort.by("custName"));
+		//ResponseEntity responseEntity = new ResponseEntity(lstCust, HttpStatus.OK);
+		//return responseEntity;
+		
+		//sortng with descending order
+		//List<Customer> lstCust = (List<Customer>) customerRepository2.findAll(Sort.by("custName").descending());
+		//ResponseEntity responseEntity = new ResponseEntity(lstCust, HttpStatus.OK);
+		//return responseEntity;
+		
+		//paging and sorting
+		//Pageable pagingSort = PageRequest.of(0, 3, Sort.by("custName"));
+		//Page<Customer> pageSort = customerRepository2.findAll(pagingSort);
+		//return new ResponseEntity(pageSort, HttpStatus.OK) ;
+		
+	}
 	
 }
